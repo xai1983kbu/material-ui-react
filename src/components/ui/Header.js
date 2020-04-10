@@ -106,7 +106,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.common.arcOrange
   },
   drawerItemSelected: {
-    opacity: 1.0
+    '& .MuiListItemText-root': {
+      opacity: 1
+    }
   },
   appbar: {
     zIndex: theme.zIndex.modal + 1 // modal is used underneath of drawer
@@ -294,19 +296,13 @@ export default function Header (props) {
               component={Link}
               to={route.link}
               selected={value === route.activeIndex}
+              classes={{ selected: classes.drawerItemSelected }}
               onClick={() => {
                 setOpenDrawer(false)
                 setValue(route.activeIndex)
               }}
             >
-              <ListItemText
-                className={
-                  value === route.activeIndex
-                    ? `${classes.drawerItem} ${classes.drawerItemSelected}`
-                    : classes.drawerItem
-                }
-                disableTypography
-              >
+              <ListItemText className={classes.drawerItem} disableTypography>
                 {route.name}
               </ListItemText>
             </ListItem>
@@ -321,16 +317,12 @@ export default function Header (props) {
             component={Link}
             to='/estimate'
             selected={value === false}
-            className={classes.drawerItemEstimate}
+            classes={{
+              root: classes.drawerItemEstimate,
+              selected: classes.drawerItemSelected
+            }}
           >
-            <ListItemText
-              className={
-                value === false
-                  ? `${classes.drawerItem} ${classes.drawerItemSelected}`
-                  : classes.drawerItem
-              }
-              disableTypography
-            >
+            <ListItemText className={classes.drawerItem} disableTypography>
               Free Estimate
             </ListItemText>
           </ListItem>
